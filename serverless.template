@@ -1,0 +1,55 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "An AWS Serverless Application.",
+  "Resources": {
+    "Get": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "PackageType": "Image",
+        "ImageConfig": {
+          "EntryPoint": [
+            "/lambda-entrypoint.sh"
+          ],
+          "Command": [
+            "DockerLambda::DockerLambda.Functions::Get"
+          ]
+        },
+        "ImageUri": "",
+        "MemorySize": 6048,
+        "Timeout": 600,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole",
+          "AmazonElasticFileSystemFullAccess"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/",
+              "Method": "GET"
+            }
+          }
+        },
+        "VpcConfig":{
+            "SecurityGroupIds": ["sg-e783d9bd"],
+            "SubnetIds":["subnet-f20a12ba", "subnet-2feee749", "subnet-fa4d07a0"]
+        }
+      },
+      "Metadata": {
+        "Dockerfile": "Dockerfile",
+        "DockerContext": ".",
+        "DockerTag": "test"
+      }
+    }
+  },
+  "Outputs": {
+    "ApiURL": {
+      "Description": "API endpoint URL for Prod environment",
+      "Value": {
+        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+      }
+    }
+  }
+}
