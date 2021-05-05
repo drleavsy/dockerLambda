@@ -1,23 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dmytro_Stoliar\\Docker\\src\\Docker\\DockerLambda.csproj": {}
+    "C:\\Users\\doc\\source\\repos\\dockerLambda\\DockerLambda.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dmytro_Stoliar\\Docker\\src\\Docker\\DockerLambda.csproj": {
+    "C:\\Users\\doc\\source\\repos\\dockerLambda\\DockerLambda.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dmytro_Stoliar\\Docker\\src\\Docker\\DockerLambda.csproj",
+        "projectUniqueName": "C:\\Users\\doc\\source\\repos\\dockerLambda\\DockerLambda.csproj",
         "projectName": "DockerLambda",
-        "projectPath": "C:\\Users\\Dmytro_Stoliar\\Docker\\src\\Docker\\DockerLambda.csproj",
-        "packagesPath": "C:\\Users\\Dmytro_Stoliar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dmytro_Stoliar\\Docker\\src\\Docker\\obj\\",
+        "projectPath": "C:\\Users\\doc\\source\\repos\\dockerLambda\\DockerLambda.csproj",
+        "packagesPath": "C:\\Users\\doc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\doc\\source\\repos\\dockerLambda\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Dmytro_Stoliar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\doc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

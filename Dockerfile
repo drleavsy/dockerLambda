@@ -1,38 +1,43 @@
-ARG FUNCTION_DIR="/src"
+ARG FUNCTION_DIR="/var/task"
 ARG CHROME_DIR="/tmp"
 
 FROM public.ecr.aws/lambda/dotnet:latest as base
 
 RUN yum update -y && yum install -y amazon-linux-extras && \
 	amazon-linux-extras install epel -y && \
-    yum install chromium -y 
+    yum install chromium -y && \
+    yum install unzip -y
 
 ARG CHROME_DIR
 WORKDIR ${CHROME_DIR}
-ADD https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/843427/chrome-linux.zip ${CHROME_DIR}
+#ADD https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/843427/chrome-linux.zip ${CHROME_DIR}
+RUN curl https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/843427/chrome-linux.zip -o ${CHROME_DIR}/chrome-linux.zip -s && \
+    unzip ${CHROME_DIR}/chrome-linux.zip -d /tmp
 COPY . .
 
 ARG FUNCTION_DIR
-FROM mcr.microsoft.com/dotnet/sdk:5.0 as sdk-base-image
+# FROM mcr.microsoft.com/dotnet/sdk:5.0 as sdk-base-image
 WORKDIR ${FUNCTION_DIR}
-COPY "DockerLambda.csproj" ${FUNCTION_DIR}
-RUN dotnet restore ${FUNCTION_DIR}/DockerLambda.csproj
+COPY "bin/Release/net5.0/" ${FUNCTION_DIR}
+CMD [ "DockerLambda::DockerLambda.Functions::Get" ]
+#COPY "DockerLambda.csproj" ${FUNCTION_DIR}
+# RUN dotnet restore ${FUNCTION_DIR}/DockerLambda.csproj
 
-WORKDIR ${FUNCTION_DIR}
-COPY . .
-RUN dotnet build "DockerLambda.csproj" --configuration Release --output ${FUNCTION_DIR}/build
+# WORKDIR ${FUNCTION_DIR}
+# COPY . .
+# RUN dotnet build "DockerLambda.csproj" --configuration Release --output ${FUNCTION_DIR}/build
 
-FROM sdk-base-image AS publish
-RUN dotnet publish "DockerLambda.csproj" \
-            --configuration Release \ 
-            --runtime linux-x64 \
-            --self-contained false \ 
-            --output ${FUNCTION_DIR}/publish \
-            -p:PublishReadyToRun=true  
+# FROM sdk-base-image AS publish
+# RUN dotnet publish "DockerLambda.csproj" \
+#             --configuration Release \ 
+#             --runtime linux-x64 \
+#             --self-contained false \ 
+#             --output ${FUNCTION_DIR}/publish \
+#             -p:PublishReadyToRun=true  
 
-FROM base as final
-WORKDIR /var/task
-COPY --from=publish ${FUNCTION_DIR}/publish .
+# FROM base as final
+# WORKDIR /var/task
+# COPY --from=publish ${FUNCTION_DIR}/publish .
 
 
 
