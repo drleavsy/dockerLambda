@@ -10,7 +10,7 @@
   "configuration": "Release",
   "function-runtime": "net5.0",
   "s3-prefix": "DockerLambda",
-  "template": "serverless.template",
-  "template-parameters": ""//,
+  "template": "serverless.template"
+  //"template-parameters": "",
   //"docker-host-build-output-dir": "./bin/Release/net5.0/linux-x64/publish"
 }

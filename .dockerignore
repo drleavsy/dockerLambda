@@ -1,0 +1,6 @@
+﻿# Ignore everything
+**
+
+# Allow files and directories
+!/bin/Release/net5.0/**
+!/tmp/**

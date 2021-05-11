@@ -20,8 +20,9 @@
         "Timeout": 600,
         "Role": null,
         "Policies": [
-          "AWSLambdaBasicExecutionRole",
-          "AmazonElasticFileSystemFullAccess"
+          "AWSLambda_FullAccess",
+          "AmazonElasticFileSystemFullAccess",
+          "AmazonS3FullAccess"
         ],
         "Events": {
           "RootGet": {
@@ -40,7 +41,7 @@
       "Metadata": {
         "Dockerfile": "Dockerfile",
         "DockerContext": ".",
-        "DockerTag": "test"
+        "DockerTag": "dockerlambdapuppet"
       }
     }
   },

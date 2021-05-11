@@ -1,3 +1,4 @@
+using System.IO;
 using Amazon.Lambda.Core;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -23,6 +24,9 @@ namespace DockerLambda
             bool isLinux = false;
             var title = string.Empty;
             RevisionInfo revisionInfo = null;
+            string directory = "/tmp";
+            var chromeSource = "/tmp/chrome-linux.zip";
+            var unzippedDirectory = "/tmp/chrome-linux";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
@@ -35,21 +39,20 @@ namespace DockerLambda
 
             //Chromium.CleanTmpOnLambda("/tmp"/*directory*/);
 
-            if (isLinux)
+            if (isLinux && !Directory.Exists(unzippedDirectory))
             {
                 //Chromium.RunBashCommands("/bin/bash", $"-c \"export CHROME_BIN=/usr/bin/chromium-browser\"");
                 //Chromium.RunBashCommands("/bin/bash", $"-c \"chmod -R 777 {directory}\"");
+                //Chromium.RunBashCommands("/bin/bash", $"-c \"curl https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/843427/chrome-linux.zip -o {directory}/chrome-linux.zip -s\"");
             }
 
-            string directory = "/tmp";
             FunctionResult = $"Running 'ls' on '/tmp' folder: {Chromium.RunBashCommands("/bin/bash", $"-c \"ls -ahl /tmp\"")}";
 
             Console.Out.WriteLine($"Attempting to set up puppeteer to use Chromium found under directory {directory} ");
             Console.Out.WriteLine("Unzipping Chromium to '/tmp' folder in Lambda");
             // LambdaLogger.Log("Lambda logging: test test test");
 
-            //var chromeSource = "/tmp/chrome-linux.zip";
-            //var unzippedDirectory = "/tmp/chrome-linux";
+
 
             //if (!Directory.Exists(unzippedDirectory) && Directory.Exists(directory) && isLinux)
             //{
